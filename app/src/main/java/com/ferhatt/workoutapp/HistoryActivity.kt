@@ -36,9 +36,7 @@ class HistoryActivity : AppCompatActivity() {
     private fun getAllCompletedDates(historyDao: HistoryDao) {
         lifecycleScope.launch {
             historyDao.fetchALlDates().collect { allCompletedDatesList->
-                // TODO(Step 3 :here the dates which were printed in log.
-                //  We will pass that list to the adapter class which we have created and bind it to the recycler view.)
-                // START
+
                 if (allCompletedDatesList.isNotEmpty()) {
                     binding?.tvHistory?.visibility = View.VISIBLE
                     binding?.rvHistory?.visibility = View.VISIBLE
