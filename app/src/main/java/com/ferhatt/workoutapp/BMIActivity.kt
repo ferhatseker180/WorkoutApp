@@ -11,8 +11,8 @@ import java.math.RoundingMode
 class BMIActivity : AppCompatActivity() {
 
     companion object {
-        private const val METRIC_UNITS_VIEW = "METRIC_UNIT_VIEW" // Metric Unit View
-        private const val US_UNITS_VIEW = "US_UNIT_VIEW" // US Unit View
+        private const val METRIC_UNITS_VIEW = "METRIC_UNIT_VIEW"
+        private const val US_UNITS_VIEW = "US_UNIT_VIEW"
     }
 
     private var currentVisibleView: String = METRIC_UNITS_VIEW
@@ -42,12 +42,15 @@ class BMIActivity : AppCompatActivity() {
             }
         }
 
+        binding?.btnCalculateUnits?.setOnClickListener {
+            calculateUnits()
+        }
+
     }
 
     private fun calculateUnits(){
 
         if (currentVisibleView == METRIC_UNITS_VIEW) {
-            // The values are validated.
             if (validateMetricUnits()) {
 
                 // The height value is converted to float value and divided by 100 to convert it to meter.
@@ -100,6 +103,7 @@ class BMIActivity : AppCompatActivity() {
 
 
     private fun makeVisibleMetricUnitsView() {
+
         currentVisibleView = METRIC_UNITS_VIEW
         binding?.tilMetricUnitWeight?.visibility = View.VISIBLE
         binding?.tilMetricUnitHeight?.visibility = View.VISIBLE
