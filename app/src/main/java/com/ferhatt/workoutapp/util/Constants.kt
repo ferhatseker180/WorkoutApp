@@ -1,6 +1,11 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.util
+
+import com.ferhatt.workoutapp.R
+import com.ferhatt.workoutapp.models.ExerciseModel
 
 class Constants {
+
+
 
     companion object {
 

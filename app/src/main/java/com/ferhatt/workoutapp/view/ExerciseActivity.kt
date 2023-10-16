@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.view
 
 import android.app.Dialog
 import android.content.Intent
@@ -11,8 +11,12 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ferhatt.workoutapp.util.Constants
+import com.ferhatt.workoutapp.R
+import com.ferhatt.workoutapp.adapter.ExerciseStatusAdapter
 import com.ferhatt.workoutapp.databinding.ActivityExerciseBinding
 import com.ferhatt.workoutapp.databinding.DialogCustomBackConfirmationBinding
+import com.ferhatt.workoutapp.models.ExerciseModel
 import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {

@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding?.flStart?.setOnClickListener {
-            val intent = Intent(this,ExerciseActivity::class.java)
+            val intent = Intent(this, ExerciseActivity::class.java)
             startActivity(intent)
         }
 

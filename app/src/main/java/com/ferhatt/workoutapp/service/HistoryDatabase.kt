@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.service
 
 import android.content.Context
 import androidx.room.Database

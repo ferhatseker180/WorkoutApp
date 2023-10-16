@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater

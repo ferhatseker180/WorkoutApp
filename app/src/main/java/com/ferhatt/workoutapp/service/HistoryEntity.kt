@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.service
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

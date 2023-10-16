@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.service
 
 import androidx.room.Dao
 import androidx.room.Insert

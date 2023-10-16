@@ -1,4 +1,4 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.models
 
 class ExerciseModel(
     private var id: Int,

@@ -1,10 +1,13 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ferhatt.workoutapp.service.HistoryDao
+import com.ferhatt.workoutapp.WorkOutApp
+import com.ferhatt.workoutapp.adapter.HistoryAdapter
 import com.ferhatt.workoutapp.databinding.ActivityHistoryBinding
 import kotlinx.coroutines.launch
 

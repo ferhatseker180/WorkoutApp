@@ -1,11 +1,13 @@
-package com.ferhatt.workoutapp
+package com.ferhatt.workoutapp.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.ferhatt.workoutapp.R
 import com.ferhatt.workoutapp.databinding.ItemExerciseStatusBinding
+import com.ferhatt.workoutapp.models.ExerciseModel
 
 class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>) : RecyclerView.Adapter<ExerciseStatusAdapter.ViewHolder>() {
 
@@ -13,7 +15,7 @@ class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>) : RecyclerView.
         val tvItem = binding.tvItem
     }
 
-    override fun onBindViewHolder(holder: ExerciseStatusAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val model: ExerciseModel = items[position]
 
@@ -30,12 +32,16 @@ class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>) : RecyclerView.
             }
             model.getIsCompleted() -> {
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context, R.drawable.item_circular_color_accent_background)
+                    ContextCompat.getDrawable(holder.itemView.context,
+                        R.drawable.item_circular_color_accent_background
+                    )
                 holder.tvItem.setTextColor(Color.parseColor("#FFFFFF"))
             }
             else -> {
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context, R.drawable.item_circular_color_gray_background)
+                    ContextCompat.getDrawable(holder.itemView.context,
+                        R.drawable.item_circular_color_gray_background
+                    )
                 holder.tvItem.setTextColor(Color.parseColor("#212121"))
             }
         }
