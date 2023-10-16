@@ -20,23 +20,6 @@ class BMIViewModel : ViewModel() {
         private var currentVisibleView: String = METRIC_UNITS_VIEW
     }
 
-  //  lateinit var etMetricUnitHeight : AppCompatEditText
-   // lateinit var etMetricUnitWeight : AppCompatEditText
-  //  lateinit var etUsMetricUnitHeightFeet : AppCompatEditText
-  //  lateinit var etUsMetricUnitHeightInch : AppCompatEditText
-  //  lateinit var etUsMetricUnitWeight : AppCompatEditText
-
-   // lateinit var tilMetricUnitWeight : TextInputLayout
-    //lateinit var tilMetricUnitHeight : TextInputLayout
-   // lateinit var tilUsMetricUnitWeight : TextInputLayout
-   // lateinit var tilMetricUsUnitHeightFeet : TextInputLayout
-   // lateinit var tilMetricUsUnitHeightInch : TextInputLayout
-   // lateinit var llDiplayBMIResult : LinearLayout
-
-   // lateinit var tvBMIValue : TextView
-    //lateinit var tvBMIType : TextView
-    // lateinit var tvBMIDescription : TextView
-
 
     private var currentVisibleView: String = METRIC_UNITS_VIEW
 
