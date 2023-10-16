@@ -17,9 +17,7 @@ class BMIViewModel : ViewModel() {
     companion object {
         private const val METRIC_UNITS_VIEW = "METRIC_UNIT_VIEW"
         private const val US_UNITS_VIEW = "US_UNIT_VIEW"
-        private var currentVisibleView: String = METRIC_UNITS_VIEW
     }
-
 
     private var currentVisibleView: String = METRIC_UNITS_VIEW
 
