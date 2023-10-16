@@ -25,9 +25,6 @@ class BMIActivity : AppCompatActivity() {
         binding = ActivityBmiBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-
-
-
         setSupportActionBar(binding?.toolbarBmiActivity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "CALCULATE BMI"
@@ -36,27 +33,44 @@ class BMIActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        val tilMetricUnitWeight = binding!!.tilMetricUnitWeight
+        val tilMetricUnitHeight = binding!!.tilMetricUnitHeight
+        val tilUsMetricUnitWeight = binding!!.tilUsMetricUnitWeight
+        val tilMetricUsUnitHeightFeet =  binding!!.tilMetricUsUnitHeightFeet
+        val tilMetricUsUnitHeightInch = binding!!.tilMetricUsUnitHeightInch
+        val etUsMetricUnitHeightFeet = binding!!.etUsMetricUnitHeightFeet
+        val etUsMetricUnitWeight = binding!!.etUsMetricUnitWeight
+        val etUsMetricUnitHeightInch = binding!!.etUsMetricUnitHeightInch
+        val llDiplayBMIResult = binding!!.llDiplayBMIResult
+
+        val etMetricUnitHeight = binding!!.etMetricUnitHeight
+        val etMetricUnitWeight = binding!!.etMetricUnitWeight
+
+        val tvBMIValue = binding!!.tvBMIValue
+        val tvBMIType = binding!!.tvBMIType
+        val tvBMIDescription = binding!!.tvBMIDescription
+
+
         try {
-            BMIViewModel.makeVisibleUsUnitsView(binding!!.tilMetricUnitWeight,binding!!.tilMetricUnitHeight,binding!!.tilUsMetricUnitWeight,
-                binding!!.tilMetricUsUnitHeightFeet,binding!!.tilMetricUsUnitHeightInch,binding!!.etUsMetricUnitHeightFeet,binding!!.etUsMetricUnitWeight,
-                binding!!.etUsMetricUnitHeightInch,binding!!.llDiplayBMIResult)
+            BMIViewModel.makeVisibleUsUnitsView(tilMetricUnitWeight,tilMetricUnitHeight,tilUsMetricUnitWeight,
+                tilMetricUsUnitHeightFeet,tilMetricUsUnitHeightInch,etUsMetricUnitHeightFeet,etUsMetricUnitWeight,
+                etUsMetricUnitHeightInch,llDiplayBMIResult)
         }catch (e : Exception) {
             e.printStackTrace()
         }
-
 
         try {
 
             binding?.rgUnits?.setOnCheckedChangeListener { _, checkedId: Int ->
 
                 if (checkedId == R.id.rbMetricUnits) {
-                    BMIViewModel.makeVisibleMetricUnitsView(binding!!.etMetricUnitHeight,binding!!.etMetricUnitWeight,
-                        binding!!.tilMetricUnitWeight,binding!!.tilMetricUnitHeight,binding!!.tilUsMetricUnitWeight,
-                        binding!!.tilMetricUsUnitHeightInch,binding!!.tilMetricUsUnitHeightFeet,binding!!.llDiplayBMIResult)
+                    BMIViewModel.makeVisibleMetricUnitsView(etMetricUnitHeight,etMetricUnitWeight,
+                        tilMetricUnitWeight,tilMetricUnitHeight,tilUsMetricUnitWeight,
+                        tilMetricUsUnitHeightInch,tilMetricUsUnitHeightFeet,llDiplayBMIResult)
                 } else {
-                    BMIViewModel.makeVisibleUsUnitsView(binding!!.tilUsMetricUnitWeight,binding!!.tilMetricUnitHeight,
-                        binding!!.tilUsMetricUnitWeight,binding!!.tilMetricUsUnitHeightFeet,binding!!.tilMetricUsUnitHeightInch,
-                        binding!!.etUsMetricUnitWeight,binding!!.etUsMetricUnitHeightInch,binding!!.etUsMetricUnitHeightFeet,binding!!.llDiplayBMIResult)
+                    BMIViewModel.makeVisibleUsUnitsView(tilUsMetricUnitWeight,tilMetricUnitHeight,
+                        tilUsMetricUnitWeight,tilMetricUsUnitHeightFeet,tilMetricUsUnitHeightInch,
+                        etUsMetricUnitWeight,etUsMetricUnitHeightInch,etUsMetricUnitHeightFeet,llDiplayBMIResult)
                 }
             }
 
@@ -66,9 +80,9 @@ class BMIActivity : AppCompatActivity() {
 
 
         binding?.btnCalculateUnits?.setOnClickListener {
-            BMIViewModel.calculateUnits(this@BMIActivity,binding!!.etMetricUnitHeight,binding!!.etMetricUnitWeight,
-                binding!!.etUsMetricUnitHeightFeet,binding!!.etUsMetricUnitHeightInch,binding!!.etUsMetricUnitWeight,
-                binding!!.llDiplayBMIResult,binding!!.tvBMIValue,binding!!.tvBMIType,binding!!.tvBMIDescription)
+            BMIViewModel.calculateUnits(this@BMIActivity,etMetricUnitHeight,etMetricUnitWeight,
+                etUsMetricUnitHeightFeet,etUsMetricUnitHeightInch,etUsMetricUnitWeight,
+               llDiplayBMIResult,tvBMIValue,tvBMIType,tvBMIDescription)
         }
 
     }
