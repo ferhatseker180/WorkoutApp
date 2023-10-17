@@ -28,13 +28,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var restProgress = 0
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimerDuration: Long = 30
+    private var exerciseTimerDuration: Long = 3
 
-  //  private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
     private var binding: ActivityExerciseBinding? = null
- //   private var tts: TextToSpeech? = null
     private var player: MediaPlayer? = null
 
     private var exerciseAdapter: ExerciseStatusAdapter? = null
@@ -64,32 +62,27 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setupRestView() {
-        try {
-            val soundURI =
-                Uri.parse("android.resource://eu.tutorials.a7_minutesworkoutapp/" + R.raw.press_start)
-            player = MediaPlayer.create(applicationContext, soundURI)
-            player?.isLooping = false // Sets the player to be looping or non-looping.
-            player?.start() // Starts Playback.
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
-        binding?.flRestView?.visibility = View.VISIBLE
-        binding?.tvTitle?.visibility = View.VISIBLE
-        binding?.upcomingLabel?.visibility = View.VISIBLE
-        binding?.tvUpcomingExerciseName?.visibility = View.VISIBLE
-        binding?.tvExerciseName?.visibility = View.INVISIBLE
-        binding?.flExerciseView?.visibility = View.INVISIBLE
-        binding?.ivImage?.visibility = View.INVISIBLE
+        exerciseViewModel.mediaPlayer(applicationContext)
+
+        val flRestView = binding!!.flRestView
+        val tvTitle = binding!!.tvTitle
+        val upcomingLabel = binding!!.upcomingLabel
+        val tvUpcomingExerciseName =  binding!!.tvUpcomingExerciseName
+        val tvExerciseName = binding!!.tvExerciseName
+        val flExerciseView = binding!!.flExerciseView
+        val ivImage = binding!!.ivImage
+
+
+        exerciseViewModel.setupRestView(flRestView, tvTitle, upcomingLabel, tvUpcomingExerciseName, tvExerciseName, flExerciseView, ivImage)
 
         if (restTimer != null) {
             restTimer?.cancel()
             restProgress = 0
         }
-
         binding?.tvUpcomingExerciseName?.text =
-           // exerciseList!![currentExercisePosition + 1].getName()
             exerciseViewModel.exerciseList[currentExercisePosition + 1].getName()
+
         setRestProgressBar()
     }
 
@@ -109,7 +102,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
                 currentExercisePosition++
                 exerciseViewModel.exerciseList[currentExercisePosition].setIsSelected(true)
-              //  exerciseList!![currentExercisePosition].setIsSelected(true)
                 exerciseAdapter?.notifyDataSetChanged()
 
                 setupExerciseView()
@@ -133,14 +125,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseProgress = 0
         }
 
-      //  speakOut(exerciseList!![currentExercisePosition].getName())
         exerciseViewModel.speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
-       // speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
 
-     //   binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
         binding?.ivImage?.setImageResource(exerciseViewModel.exerciseList[currentExercisePosition].getImage())
-      //  binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
         binding?.tvExerciseName?.text = exerciseViewModel.exerciseList[currentExercisePosition].getName()
+
         setExerciseProgressBar()
     }
 
@@ -157,12 +146,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-            //    if (currentExercisePosition < exerciseList?.size!! - 1) {
                    if (currentExercisePosition < exerciseViewModel.exerciseList.size - 1){
-                  //  exerciseList!![currentExercisePosition].setIsSelected(false) // exercise is completed so selection is set to false
+
                        exerciseViewModel.exerciseList[currentExercisePosition].setIsSelected(false)
                        exerciseViewModel.exerciseList[currentExercisePosition].setIsCompleted(true)
-                   // exerciseList!![currentExercisePosition].setIsCompleted(true) // updating in the list that this exercise is completed
+
                     exerciseAdapter?.notifyDataSetChanged()
                     setupRestView()
                 } else {
@@ -183,12 +171,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             restProgress = 0
         }
 
-     /*   if (tts != null) {
-            tts!!.stop()
-            tts!!.shutdown()
-        }
-
-      */
 
         if (exerciseViewModel.tts != null){
             exerciseViewModel!!.tts?.stop()
@@ -209,7 +191,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
 
-          //  val result = tts?.setLanguage(Locale.US)
             val result = exerciseViewModel.tts?.setLanguage(Locale.US)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -221,15 +202,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
- //   private fun speakOut(text: String) {
-       // tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
-
- //   }
-
     private fun setupExerciseStatusRecyclerView(){
 
         binding?.rvExerciseStatus?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-       // exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
         exerciseAdapter = ExerciseStatusAdapter(exerciseViewModel.exerciseList)
 
         binding?.rvExerciseStatus?.adapter = exerciseAdapter

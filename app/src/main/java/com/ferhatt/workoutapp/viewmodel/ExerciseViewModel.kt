@@ -25,13 +25,21 @@ import com.ferhatt.workoutapp.models.ExerciseModel
 import com.ferhatt.workoutapp.util.Constants
 import com.ferhatt.workoutapp.view.FinishActivity
 import java.util.Locale
+import java.util.function.Function
 
 class ExerciseViewModel : ViewModel() {
 
      var tts: TextToSpeech? = null
      var exerciseList : ArrayList<ExerciseModel> = Constants.defaultExerciseList()
+     var player: MediaPlayer? = null
+     var currentExercisePosition = -1
+    var restProgress = 0
+    var restTimer: CountDownTimer? = null
+    var exerciseTimer: CountDownTimer? = null
+    var exerciseProgress = 0
+    var exerciseTimerDuration: Long = 3
 
-
+    var exerciseAdapter: ExerciseStatusAdapter? = null
 
     fun textToSpeak(context: Context,listener: OnInitListener){
 
@@ -46,6 +54,31 @@ class ExerciseViewModel : ViewModel() {
         }
     }
 
+    fun mediaPlayer(context: Context){
+
+        try {
+            val soundURI =
+                Uri.parse("android.resource://eu.tutorials.a7_minutesworkoutapp/" + R.raw.press_start)
+            player = MediaPlayer.create(context, soundURI)
+            player?.isLooping = false // Sets the player to be looping or non-looping.
+            player?.start() // Starts Playback.
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun setupRestView(flRestView : FrameLayout,tvTitle : TextView,upcomingLabel : TextView,tvUpcomingExerciseName : TextView,
+                      tvExerciseName : TextView, flExerciseView : FrameLayout,ivImage : ImageView){
+
+        flRestView?.visibility = View.VISIBLE
+        tvTitle?.visibility = View.VISIBLE
+        upcomingLabel?.visibility = View.VISIBLE
+        tvUpcomingExerciseName?.visibility = View.VISIBLE
+        tvExerciseName?.visibility = View.INVISIBLE
+        flExerciseView?.visibility = View.INVISIBLE
+        ivImage?.visibility = View.INVISIBLE
+
+    }
 
 
 
