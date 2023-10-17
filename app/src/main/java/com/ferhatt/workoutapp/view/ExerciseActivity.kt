@@ -30,11 +30,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exerciseProgress = 0
     private var exerciseTimerDuration: Long = 30
 
-    private var exerciseList: ArrayList<ExerciseModel>? = null
+  //  private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
     private var binding: ActivityExerciseBinding? = null
-    private var tts: TextToSpeech? = null
+ //   private var tts: TextToSpeech? = null
     private var player: MediaPlayer? = null
 
     private var exerciseAdapter: ExerciseStatusAdapter? = null
@@ -56,9 +56,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             customDialogForBackButton()
         }
 
-        tts = TextToSpeech(this, this)
-
-        exerciseList = Constants.defaultExerciseList()
+        exerciseViewModel.textToSpeak(this@ExerciseActivity,this)
 
         setupRestView()
 
@@ -136,7 +134,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
       //  speakOut(exerciseList!![currentExercisePosition].getName())
-        speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
+        exerciseViewModel.speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
+       // speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
 
      //   binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
         binding?.ivImage?.setImageResource(exerciseViewModel.exerciseList[currentExercisePosition].getImage())
@@ -184,9 +183,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             restProgress = 0
         }
 
-        if (tts != null) {
+     /*   if (tts != null) {
             tts!!.stop()
             tts!!.shutdown()
+        }
+
+      */
+
+        if (exerciseViewModel.tts != null){
+            exerciseViewModel!!.tts?.stop()
+            exerciseViewModel!!.tts?.shutdown()
         }
 
         if(player != null){
@@ -202,7 +208,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
-            val result = tts?.setLanguage(Locale.US)
+
+          //  val result = tts?.setLanguage(Locale.US)
+            val result = exerciseViewModel.tts?.setLanguage(Locale.US)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "The Language specified is not supported!")
@@ -213,14 +221,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-    private fun speakOut(text: String) {
-        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
-    }
+ //   private fun speakOut(text: String) {
+       // tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+
+ //   }
 
     private fun setupExerciseStatusRecyclerView(){
 
         binding?.rvExerciseStatus?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
+       // exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
+        exerciseAdapter = ExerciseStatusAdapter(exerciseViewModel.exerciseList)
 
         binding?.rvExerciseStatus?.adapter = exerciseAdapter
 

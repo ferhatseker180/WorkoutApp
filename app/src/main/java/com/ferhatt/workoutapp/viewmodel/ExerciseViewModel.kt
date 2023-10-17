@@ -28,7 +28,7 @@ import java.util.Locale
 
 class ExerciseViewModel : ViewModel() {
 
-    private var tts: TextToSpeech? = null
+     var tts: TextToSpeech? = null
      var exerciseList : ArrayList<ExerciseModel> = Constants.defaultExerciseList()
 
 
@@ -37,8 +37,13 @@ class ExerciseViewModel : ViewModel() {
 
         tts = TextToSpeech(context, listener)
 
-
-
+    }
+    fun speakOut(text : String){
+        try {
+            tts!!.speak(text,TextToSpeech.QUEUE_FLUSH,null,"")
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
     }
 
 
