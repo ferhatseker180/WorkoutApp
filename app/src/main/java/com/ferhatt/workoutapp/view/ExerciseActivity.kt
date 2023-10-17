@@ -10,6 +10,7 @@ import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ferhatt.workoutapp.util.Constants
 import com.ferhatt.workoutapp.R
@@ -17,6 +18,8 @@ import com.ferhatt.workoutapp.adapter.ExerciseStatusAdapter
 import com.ferhatt.workoutapp.databinding.ActivityExerciseBinding
 import com.ferhatt.workoutapp.databinding.DialogCustomBackConfirmationBinding
 import com.ferhatt.workoutapp.models.ExerciseModel
+import com.ferhatt.workoutapp.viewmodel.BMIViewModel
+import com.ferhatt.workoutapp.viewmodel.ExerciseViewModel
 import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -35,6 +38,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var player: MediaPlayer? = null
 
     private var exerciseAdapter: ExerciseStatusAdapter? = null
+
+    val exerciseViewModel : ExerciseViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +90,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         binding?.tvUpcomingExerciseName?.text =
-            exerciseList!![currentExercisePosition + 1].getName()
+           // exerciseList!![currentExercisePosition + 1].getName()
+            exerciseViewModel.exerciseList[currentExercisePosition + 1].getName()
         setRestProgressBar()
     }
 
@@ -104,7 +110,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 currentExercisePosition++
-                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseViewModel.exerciseList[currentExercisePosition].setIsSelected(true)
+              //  exerciseList!![currentExercisePosition].setIsSelected(true)
                 exerciseAdapter?.notifyDataSetChanged()
 
                 setupExerciseView()
@@ -128,10 +135,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseProgress = 0
         }
 
-        speakOut(exerciseList!![currentExercisePosition].getName())
+      //  speakOut(exerciseList!![currentExercisePosition].getName())
+        speakOut(exerciseViewModel.exerciseList[currentExercisePosition].getName())
 
-        binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
-        binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
+     //   binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        binding?.ivImage?.setImageResource(exerciseViewModel.exerciseList[currentExercisePosition].getImage())
+      //  binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
+        binding?.tvExerciseName?.text = exerciseViewModel.exerciseList[currentExercisePosition].getName()
         setExerciseProgressBar()
     }
 
@@ -148,9 +158,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-                if (currentExercisePosition < exerciseList?.size!! - 1) {
-                    exerciseList!![currentExercisePosition].setIsSelected(false) // exercise is completed so selection is set to false
-                    exerciseList!![currentExercisePosition].setIsCompleted(true) // updating in the list that this exercise is completed
+            //    if (currentExercisePosition < exerciseList?.size!! - 1) {
+                   if (currentExercisePosition < exerciseViewModel.exerciseList.size - 1){
+                  //  exerciseList!![currentExercisePosition].setIsSelected(false) // exercise is completed so selection is set to false
+                       exerciseViewModel.exerciseList[currentExercisePosition].setIsSelected(false)
+                       exerciseViewModel.exerciseList[currentExercisePosition].setIsCompleted(true)
+                   // exerciseList!![currentExercisePosition].setIsCompleted(true) // updating in the list that this exercise is completed
                     exerciseAdapter?.notifyDataSetChanged()
                     setupRestView()
                 } else {

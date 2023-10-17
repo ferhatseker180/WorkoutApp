@@ -49,9 +49,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-   // val room_version = ("2.5.2")
-   // val activityVersion = ("1.8.0")
- //   val lifecycle_version = ("2.4.0-beta01")
+
     // Room and Lifecycle dependencies
     implementation ("androidx.room:room-runtime:2.5.2")
     ksp ("androidx.room:room-compiler:2.5.2")
@@ -60,5 +58,8 @@ dependencies {
 
     //kotlin extension for coroutine support with activities
     implementation ("androidx.activity:activity-ktx:1.8.0")
+
+    // Viewmodel Implemantation
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
 
 }
