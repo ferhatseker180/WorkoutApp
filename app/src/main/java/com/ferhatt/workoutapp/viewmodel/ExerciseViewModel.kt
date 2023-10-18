@@ -32,14 +32,7 @@ class ExerciseViewModel : ViewModel() {
      var tts: TextToSpeech? = null
      var exerciseList : ArrayList<ExerciseModel> = Constants.defaultExerciseList()
      var player: MediaPlayer? = null
-     var currentExercisePosition = -1
-    var restProgress = 0
-    var restTimer: CountDownTimer? = null
-    var exerciseTimer: CountDownTimer? = null
-    var exerciseProgress = 0
-    var exerciseTimerDuration: Long = 3
-
-    var exerciseAdapter: ExerciseStatusAdapter? = null
+    
 
     fun textToSpeak(context: Context,listener: OnInitListener){
 
