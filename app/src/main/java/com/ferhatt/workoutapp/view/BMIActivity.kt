@@ -16,7 +16,6 @@ import java.math.RoundingMode
 class BMIActivity : AppCompatActivity() {
 
     private var binding : ActivityBmiBinding? = null
-  // private lateinit var BMIViewModel : BMIViewModel
     val BMIViewModel : BMIViewModel by viewModels()
      private var bmi : Float ?= null
 

@@ -3,16 +3,20 @@ package com.ferhatt.workoutapp.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ferhatt.workoutapp.service.HistoryDao
 import com.ferhatt.workoutapp.WorkOutApp
 import com.ferhatt.workoutapp.adapter.HistoryAdapter
 import com.ferhatt.workoutapp.databinding.ActivityHistoryBinding
+import com.ferhatt.workoutapp.viewmodel.FinishViewModel
+import com.ferhatt.workoutapp.viewmodel.HistoryViewModel
 import kotlinx.coroutines.launch
 
 class HistoryActivity : AppCompatActivity() {
     private var binding: ActivityHistoryBinding? = null
+    val historyViewModel : HistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,37 +36,11 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         val dao = (application as WorkOutApp).db.historyDao()
-        getAllCompletedDates(dao)
+
+        historyViewModel.getAllCompletedDates(dao,binding!!.tvHistory,binding!!.rvHistory,binding!!.tvNoDataAvailable,applicationContext)
 
     }
 
-    private fun getAllCompletedDates(historyDao: HistoryDao) {
-        lifecycleScope.launch {
-            historyDao.fetchALlDates().collect { allCompletedDatesList->
-
-                if (allCompletedDatesList.isNotEmpty()) {
-                    binding?.tvHistory?.visibility = View.VISIBLE
-                    binding?.rvHistory?.visibility = View.VISIBLE
-                    binding?.tvNoDataAvailable?.visibility = View.GONE
-
-                    binding?.rvHistory?.layoutManager = LinearLayoutManager(this@HistoryActivity)
-
-                    val dates = ArrayList<String>()
-                    for (date in allCompletedDatesList){
-                        dates.add(date.date)
-                    }
-                    val historyAdapter = HistoryAdapter(ArrayList(dates))
-
-                    binding?.rvHistory?.adapter = historyAdapter
-                } else {
-                    binding?.tvHistory?.visibility = View.GONE
-                    binding?.rvHistory?.visibility = View.GONE
-                    binding?.tvNoDataAvailable?.visibility = View.VISIBLE
-                }
-            }
-        }
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

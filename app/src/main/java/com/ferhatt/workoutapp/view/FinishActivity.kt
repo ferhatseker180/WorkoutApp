@@ -3,11 +3,14 @@ package com.ferhatt.workoutapp.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ferhatt.workoutapp.service.HistoryDao
 import com.ferhatt.workoutapp.service.HistoryEntity
 import com.ferhatt.workoutapp.WorkOutApp
 import com.ferhatt.workoutapp.databinding.ActivityFinishBinding
+import com.ferhatt.workoutapp.viewmodel.ExerciseViewModel
+import com.ferhatt.workoutapp.viewmodel.FinishViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -16,6 +19,7 @@ import java.util.Locale
 class FinishActivity : AppCompatActivity() {
     private var binding: ActivityFinishBinding? = null
 
+    val finishViewModel : FinishViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFinishBinding.inflate(layoutInflater)
@@ -33,29 +37,10 @@ class FinishActivity : AppCompatActivity() {
             finish()
         }
 
-        val dao = (application as WorkOutApp).db.historyDao()
-        addDateToDatabase(dao)
+        finishViewModel.dao(application)
 
     }
 
-    private fun addDateToDatabase(historyDao: HistoryDao) {
 
-        val c = Calendar.getInstance()
-        val dateTime = c.time
-        Log.e("Date : ", "" + dateTime)
-
-
-        val sdf = SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault()) // Date Formatter
-        val date = sdf.format(dateTime) // dateTime is formatted in the given format.
-        Log.e("Formatted Date : ", "" + date) // Formatted date is printed in the log.
-
-        lifecycleScope.launch {
-            historyDao.insert(HistoryEntity(date))
-            Log.e(
-                "Date : ",
-                "Added..."
-            )
-        }
-    }
 
 }

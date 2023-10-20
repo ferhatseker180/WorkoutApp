@@ -4,9 +4,6 @@ import com.ferhatt.workoutapp.R
 import com.ferhatt.workoutapp.models.ExerciseModel
 
 class Constants {
-
-
-
     companion object {
 
         fun defaultExerciseList(): ArrayList<ExerciseModel> {

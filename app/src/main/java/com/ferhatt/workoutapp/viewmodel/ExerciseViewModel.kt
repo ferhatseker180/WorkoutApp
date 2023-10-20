@@ -50,9 +50,8 @@ class ExerciseViewModel : ViewModel() {
     fun mediaPlayer(context: Context){
 
         try {
-            val soundURI =
-                Uri.parse("android.resource://eu.tutorials.a7_minutesworkoutapp/" + R.raw.press_start)
-            player = MediaPlayer.create(context, soundURI)
+         //   val soundURI = Uri.parse("android.resource://eu.tutorials.a7_minutesworkoutapp/" + R.raw.press_start)
+            player = MediaPlayer.create(context, R.raw.press_start)
             player?.isLooping = false // Sets the player to be looping or non-looping.
             player?.start() // Starts Playback.
         } catch (e: Exception) {
