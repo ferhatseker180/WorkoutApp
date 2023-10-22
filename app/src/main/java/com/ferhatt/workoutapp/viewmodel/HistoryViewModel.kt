@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel() : ViewModel() {
 
-  //  val dao = (application as WorkOutApp).db.historyDao()
 
     fun getAllCompletedDates(historyDao: HistoryDao,tvHistory : TextView,rvHistory : RecyclerView,
                              tvNoDataAvailable : TextView,context: Context) {
