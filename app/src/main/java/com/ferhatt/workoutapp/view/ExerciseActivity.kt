@@ -90,7 +90,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         binding?.progressBar?.progress = restProgress
 
-        restTimer = object : CountDownTimer(20000, 1000) {
+        restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++ // It is increased by 1
                 binding?.progressBar?.progress =
